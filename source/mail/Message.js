@@ -32,7 +32,7 @@ var Message = O.Class({
         var threadId = this.get( 'threadId' );
         return threadId ?
             this.get( 'store' ).getRecord( JMAP.Thread, threadId ) : null;
-    }.property( 'threadId' ).nocache(),
+    }.oProperty( 'threadId' ).nocache(),
 
     mailboxes: Record.toMany({
         recordType: JMAP.Mailbox,
@@ -63,7 +63,7 @@ var Message = O.Class({
     },
     isInTrash: function () {
         return this.isIn( 'trash' );
-    }.property( 'mailboxes' ),
+    }.oProperty( 'mailboxes' ),
 
     notifyThread: function () {
         var threadId = this.get( 'threadId' ),
@@ -80,12 +80,12 @@ var Message = O.Class({
     fromName: function () {
         var from = this.get( 'from' );
         return from ? from.name || from.email.split( '@' )[0] : '';
-    }.property( 'from' ),
+    }.oProperty( 'from' ),
 
     fromEmail: function () {
         var from = this.get( 'from' );
         return from ? from.email : '';
-    }.property( 'from' ),
+    }.oProperty( 'from' ),
 
     // ---
 
@@ -97,7 +97,7 @@ var Message = O.Class({
             return READY;
         }
         return EMPTY;
-    }.property( 'blobId' ),
+    }.oProperty( 'blobId' ),
 
     fetchDetails: function () {
         if ( this.get( 'detailsStatus' ) === EMPTY ) {

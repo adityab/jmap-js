@@ -18,13 +18,13 @@ var aggregateBoolean = function ( _, key ) {
     return this.get( 'messages' ).reduce( function ( isProperty, message ) {
         return isProperty || ( !message.isIn( 'trash' ) && message.get( key ) );
     }, false );
-}.property( 'messages' ).nocache();
+}.oProperty( 'messages' ).nocache();
 
 var aggregateBooleanInTrash = function ( _, key ) {
     return this.get( 'messages' ).reduce( function ( isProperty, message ) {
         return isProperty || ( message.isIn( 'trash' ) && message.get( key ) );
     }, false );
-}.property( 'messages' ).nocache();
+}.oProperty( 'messages' ).nocache();
 
 var Thread = O.Class({
 
@@ -58,7 +58,7 @@ var Thread = O.Class({
             });
         });
         return counts;
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     isUnread: aggregateBoolean,
     isFlagged: aggregateBoolean,
@@ -69,21 +69,21 @@ var Thread = O.Class({
         return this.get( 'messages' ).reduce( function ( count, message ) {
             return count + ( message.isIn( 'trash' ) ? 0 : 1 );
         }, 0 );
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     // senders is [{name: String, email: String}]
     senders: function () {
         return this.get( 'messages' ).map( function ( message ) {
             return message.isIn( 'trash' ) ? null : message.get( 'from' );
         }).filter( O.Transform.toBoolean );
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     size: function () {
         return this.get( 'messages' ).reduce( function ( size, message ) {
             return size +
                 ( message.isIn( 'trash' ) ? 0 : message.get( 'size' ) );
         }, 0 );
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     // ---
 
@@ -96,20 +96,20 @@ var Thread = O.Class({
         return this.get( 'messages' ).reduce( function ( count, message ) {
             return count + ( message.isIn( 'trash' ) ? 1 : 0 );
         }, 0 );
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     sendersInTrash: function () {
         return this.get( 'messages' ).map( function ( message ) {
             return message.isIn( 'trash' ) ? message.get( 'from' ) : null;
         }).filter( O.Transform.toBoolean );
-    }.property( 'messages' ).nocache(),
+    }.oProperty( 'messages' ).nocache(),
 
     sizeInTrash: function () {
         return this.get( 'messages' ).reduce( function ( size, message ) {
             return size +
                 ( message.isIn( 'trash' ) ? message.get( 'size' ) : 0 );
         }, 0 );
-    }.property( 'messages' ).nocache()
+    }.oProperty( 'messages' ).nocache()
 });
 
 JMAP.mail.threadUpdateFetchRecords = true;

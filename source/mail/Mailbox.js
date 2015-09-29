@@ -108,7 +108,7 @@ var Mailbox = O.Class({
 
     displayName: function () {
         return this.get( 'name' );
-    }.property( 'name' ),
+    }.oProperty( 'name' ),
 
     subfolders: function () {
         var storeKey = this.get( 'storeKey' ),
@@ -121,12 +121,12 @@ var Mailbox = O.Class({
                 O.sortByProperties([ 'sortOrder', 'name' ])
             ) :
             new O.RecordArray( store, Mailbox, [] );
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     depth: function () {
         var parent = this.get( 'parent' );
         return parent ? parent.get( 'depth' ) + 1 : 0;
-    }.property( 'parent' ),
+    }.oProperty( 'parent' ),
 
     depthDidChange: function ( _, __, oldDepth ) {
         if ( oldDepth !== this.get( 'depth' ) ) {

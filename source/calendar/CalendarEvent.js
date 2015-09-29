@@ -30,12 +30,12 @@ var CalendarEvent = O.Class({
         var calendar = this.get( 'calendar' ),
             organizer = this.get( 'organizer' );
         return calendar.get( 'mayWrite' ) && ( !organizer || organizer.isYou );
-    }.property( 'calendar', 'organizer' ),
+    }.oProperty( 'calendar', 'organizer' ),
 
     isInvitation: function () {
         var organizer = this.get( 'organizer' );
         return ( organizer && !organizer.isYou );
-    }.property( 'organizer' ),
+    }.oProperty( 'organizer' ),
 
     storeWillUnload: function () {
         this._clearOccurrencesCache();
@@ -134,7 +134,7 @@ var CalendarEvent = O.Class({
             }
         }
         return date;
-    }.property( 'start', 'startTimeZone' ),
+    }.oProperty( 'start', 'startTimeZone' ),
 
     utcEnd: function ( date ) {
         var timeZone = this.get( 'endTimeZone' );
@@ -148,7 +148,7 @@ var CalendarEvent = O.Class({
             }
         }
         return date;
-    }.property( 'end', 'endTimeZone', 'isAllDay' ),
+    }.oProperty( 'end', 'endTimeZone', 'isAllDay' ),
 
     localStart: function ( date ) {
         var start = this.get( 'start' );
@@ -159,7 +159,7 @@ var CalendarEvent = O.Class({
             date = start;
         }
         return date;
-    }.property( 'start', 'startTimeZone' ).doNotNotify(),
+    }.oProperty( 'start', 'startTimeZone' ).doNotNotify(),
 
     localEnd: function ( date ) {
         var isAllDay = this.get( 'isAllDay' ),
@@ -190,7 +190,7 @@ var CalendarEvent = O.Class({
             }
         }
         return date;
-    }.property( 'end', 'endTimeZone', 'isAllDay' ).doNotNotify(),
+    }.oProperty( 'end', 'endTimeZone', 'isAllDay' ).doNotNotify(),
 
     // ---
 
@@ -202,7 +202,7 @@ var CalendarEvent = O.Class({
             duration = this.get( 'utcEnd' ) - utcStart;
         }
         return duration;
-    }.property( 'utcStart', 'utcEnd' ),
+    }.oProperty( 'utcStart', 'utcEnd' ),
 
     // ---
 
@@ -256,7 +256,7 @@ var CalendarEvent = O.Class({
             dates.sort( numerically );
         }
         return dates;
-    }.property( 'exceptions' ),
+    }.oProperty( 'exceptions' ),
 
     _getOccurrenceForDate: function ( date ) {
         var id = date.toJSON(),
@@ -372,7 +372,7 @@ var CalendarEvent = O.Class({
             });
         }
         return dates;
-    }.property( 'start', 'startTimeZone',
+    }.oProperty( 'start', 'startTimeZone',
         'recurrence', 'inclusions', 'exceptions' ),
 
     totalOccurrences: function () {
@@ -384,7 +384,7 @@ var CalendarEvent = O.Class({
             return Number.MAX_VALUE;
         }
         return this.get( 'allStartDates' ).length;
-    }.property( 'allStartDates' ),
+    }.oProperty( 'allStartDates' ),
 
     _clearOccurrencesCache: function () {
         var cache = this._ocache,
@@ -430,7 +430,7 @@ var CalendarEvent = O.Class({
             rsvp = you ? you.rsvp : 'n/a';
         }
         return rsvp;
-    }.property( 'attendees' ),
+    }.oProperty( 'attendees' ),
 
     // ---
 
@@ -440,14 +440,14 @@ var CalendarEvent = O.Class({
 
     isUploading: function () {
         return !!JMAP.calendar.eventUploads.get( this ).length;
-    }.property( 'files' ),
+    }.oProperty( 'files' ),
 
     files: function () {
         var attachments = this.get( 'attachments' ) || [];
         return attachments.map( function ( attachment ) {
             return new O.Object( attachment );
         }).concat( JMAP.calendar.eventUploads.get( this ) );
-    }.property( 'attachments' ),
+    }.oProperty( 'attachments' ),
 
     addFile: function ( file ) {
         var attachment = new JMAP.CalendarAttachment( file, this );
@@ -550,7 +550,7 @@ var proxyOverrideAttibute = function ( Type, key ) {
                 originalValue;
         }
         return value;
-    }.property( 'overrides', 'original.' + key );
+    }.oProperty( 'overrides', 'original.' + key );
 };
 
 var CalendarEventOccurrence = O.Class({
@@ -675,15 +675,15 @@ var CalendarEventOccurrence = O.Class({
         return O.isEqual( start, original.get( 'start' ) ) ? 0 :
             original.get( 'allStartDates' )
                     .binarySearch( Date.fromJSON( this.get( 'id' ) ) );
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     allStartDates: function () {
         return this.get( 'original' ).get( 'allStartDates' );
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     totalOccurrences: function () {
         return this.get( 'original' ).get( 'totalOccurrences' );
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     // ---
 

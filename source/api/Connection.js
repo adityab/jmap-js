@@ -264,7 +264,7 @@ var Connection = O.Class({
             'Accept': 'application/json',
             'Authorization': JMAP.auth.get( 'accessToken' )
         };
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     /**
         Method: O.Connection#send

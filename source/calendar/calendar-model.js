@@ -74,7 +74,7 @@ var repeatingEvents = new O.Object({
             records[i] = store.materialiseRecord( storeKeys[i], CalendarEvent );
         }
         return records;
-    }.property(),
+    }.oProperty(),
 
     clearIndex: function () {
         this.computedPropertyDidChange( 'records' );

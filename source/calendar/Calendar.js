@@ -77,7 +77,7 @@ var Calendar = O.Class({
                 this.get( 'mayRemoveItems' );
         }
         return mayWrite;
-    }.property( 'mayAddItems', 'mayModifyItems', 'mayRemoveItems' ),
+    }.oProperty( 'mayAddItems', 'mayModifyItems', 'mayRemoveItems' ),
 
     cascadeChange: function ( _, key, oldValue, newValue ) {
         var store = this.get( 'store' ),

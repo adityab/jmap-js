@@ -58,7 +58,7 @@ var ContactGroup = O.Class({
             index[ contact.get( 'storeKey' ) ] = true;
             return index;
         }, {} );
-    }.property( 'contacts' ),
+    }.oProperty( 'contacts' ),
 
     contains: function ( contact ) {
         return !!this.get( 'contactIndex' )[ contact.get( 'storeKey' ) ];

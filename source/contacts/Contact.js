@@ -93,7 +93,7 @@ var Contact = O.Class({
             .filter( function ( group ) {
                 return group.contains( contact );
            });
-    }.property().nocache(),
+    }.oProperty().nocache(),
 
     // ---
 
@@ -114,7 +114,7 @@ var Contact = O.Class({
             name = this.get( 'company' );
         }
         return name;
-    }.property( 'firstName', 'lastName', 'company' ),
+    }.oProperty( 'firstName', 'lastName', 'company' ),
 
     emailName: function () {
         var name = this.get( 'name' ).replace( /["\\]/g, '' );
@@ -122,7 +122,7 @@ var Contact = O.Class({
             name = '"' + name + '"';
         }
         return name;
-    }.property( 'name' ),
+    }.oProperty( 'name' ),
 
     defaultEmailIndex: function () {
         var emails = this.get( 'emails' ),
@@ -133,18 +133,18 @@ var Contact = O.Class({
             }
         }
         return 0;
-    }.property( 'emails' ),
+    }.oProperty( 'emails' ),
 
     defaultEmail: function () {
         var email = this.get( 'emails' )[ this.get( 'defaultEmailIndex' ) ];
         return email ? email.value : '';
-    }.property( 'emails' ),
+    }.oProperty( 'emails' ),
 
     defaultNameAndEmail: function () {
         var name = this.get( 'emailName' ),
             email = this.get( 'defaultEmail' );
         return email ? name ? name + ' <' + email + '>' : email : '';
-    }.property( 'emailName', 'defaultEmail' )
+    }.oProperty( 'emailName', 'defaultEmail' )
 });
 
 JMAP.contacts.handle( Contact, {

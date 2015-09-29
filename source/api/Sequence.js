@@ -60,7 +60,7 @@ var Sequence = O.Class({
         var index = this.index,
             length = this.length;
         return length ? Math.round( ( index / length ) * 100 ) : 100;
-    }.property( 'index', 'length' )
+    }.oProperty( 'index', 'length' )
 });
 
 JMAP.Sequence = Sequence;
